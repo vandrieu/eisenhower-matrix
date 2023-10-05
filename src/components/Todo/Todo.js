@@ -10,7 +10,7 @@ function Todo(props) {
   // TODO: Don't render all the changes all the time
   const { data, areaKey, index, change, remove } = props;
 
-  const [isInputActive, setIsInputActive] = useState((data.setFocus && data.text.length === 0) ?? false); //focus new todo when created
+  const [isInputActive, setIsInputActive] = useState(data.text.length === 0 ?? false); //focus empty todo when created
   const [inputValue, setInputValue] = useState(data.text);
 
   const inputRef = useRef(null);

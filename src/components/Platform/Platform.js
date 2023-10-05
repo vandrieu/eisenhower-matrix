@@ -2,8 +2,7 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { onDragEnd } from '../../utils/drag';
 import { generateId } from '../../utils/idgenerator';
-import { initializeData } from '../../utils/initData';
-import useLocalStorageState from '../../hooks/usePersistedState';
+import useAreasData from '../../hooks/useAreasData';
 
 import Area from '../Area/Area';
 
@@ -11,10 +10,10 @@ import './Platform.css';
 
 
 function Platform() {
-  const [areas, setAreas] = useLocalStorageState("areaList", initializeData());
+  const [areas, setAreas] = useAreasData();
 
   const addTodo = (key) => {
-    const newTodo = { id: generateId(), text: "", setFocus: true }
+    const newTodo = { id: generateId(), text: "" }
     let area = areas[key];
     area.items.push(newTodo);
     // TODO: Need to change that only items array is set, not whole area object
