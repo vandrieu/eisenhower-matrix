@@ -24,10 +24,3 @@
   grid-area: eliminate;
   background-color: var(--eliminate-area-color);
 }
-
-.done-area {
-  grid-area: done;
-  background-color: var(--done-area-color);
-}
-
-

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Edit, CheckSquare, XSquare } from 'react-feather';
 import useKeypress from "../../hooks/useKeyPress";
+import TextareaAutosize from 'react-textarea-autosize';
 
 import './Todo.css'
 
@@ -9,7 +10,7 @@ function Todo(props) {
   // TODO: Don't render all the changes all the time
   const { data, areaKey, index, change, remove } = props;
 
-  const [isInputActive, setIsInputActive] = useState(false);
+  const [isInputActive, setIsInputActive] = useState((data.setFocus && data.text.length === 0) ?? false); //focus new todo when created
   const [inputValue, setInputValue] = useState(data.text);
 
   const inputRef = useRef(null);
@@ -31,10 +32,18 @@ function Todo(props) {
     }
   }, [esc, data.text]);
 
+  const onBlur = (e) => {
+    change(areaKey, index, inputValue);
+    setIsInputActive(false);
+  }
+
   // focus the cursor when edit is active
   useEffect(() => {
     if (isInputActive) {
-      inputRef.current.focus();
+      const textarea = inputRef.current
+      textarea.focus();
+      textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+      textarea.scrollTop = textarea.scrollHeight;
     }
   }, [isInputActive]);
 
@@ -62,35 +71,32 @@ function Todo(props) {
     setIsInputActive(true);
   }
 
-  return(
+  return (
     <Draggable key={data.id} draggableId={data.id} index={index}>
-      {(provided, snapshot) => 
+      {(provided, snapshot) =>
         <div
-          className={`todo ${snapshot.isDragging ? " active" : ""} ${isInputActive ? " active": ""}`}
+          className={`todo ${snapshot.isDragging ? " active" : ""} ${isInputActive ? " active" : ""}`}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          onClick={handleEdit}
         >
           <div className="text-section">
-            { isInputActive ? 
-              <textarea
+            {isInputActive ?
+              <TextareaAutosize
                 className="text-input"
                 ref={inputRef}
                 value={inputValue}
                 onChange={handleInputChange}
+                onBlur={onBlur}
               />
               :
               <span className="text-input">
                 {data.text}
               </span>
-            }  
+            }
           </div>
           <div className="button-section">
-            { isInputActive ?
-              <button className="action-button save-button" onClick={handleSave}><CheckSquare/></button>
-            :
-              <button className="action-button edit-button" onClick={handleEdit}><Edit/></button>
-            }
             <button className="action-button remove-button" onClick={() => remove(areaKey, index)}><XSquare /></button>
           </div>
         </div>

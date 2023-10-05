@@ -14,7 +14,7 @@ function Platform() {
   const [areas, setAreas] = useLocalStorageState("areaList", initializeData());
 
   const addTodo = (key) => {
-    const newTodo = { id: generateId(), text: ""}
+    const newTodo = { id: generateId(), text: "", setFocus: true }
     let area = areas[key];
     area.items.push(newTodo);
     // TODO: Need to change that only items array is set, not whole area object
@@ -33,7 +33,7 @@ function Platform() {
   const changeTodo = (key, index, text) => {
     let area = areas[key];
     area.items[index].text = text;
-    const newObj = { ...areas, [key]: area}
+    const newObj = { ...areas, [key]: area }
     setAreas(newObj);
   }
 
@@ -43,11 +43,11 @@ function Platform() {
 
   return (
     <div className="platform">
-        
-        <div className="label urgent">Urgent</div>
-        <div className="label not-urgent">Not urgent</div>
-        <div className="label important">Important</div>
-        <div className="label not-important">Not important</div>
+
+      <div className="label urgent">Urgent</div>
+      <div className="label not-urgent">Not urgent</div>
+      <div className="label important">Important</div>
+      <div className="label not-important">Not important</div>
 
       <DragDropContext onDragEnd={result => onDragEnd(result, areas, setAreas)}>
         {areaComponents}

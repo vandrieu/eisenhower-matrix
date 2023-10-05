@@ -12,7 +12,21 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 5px;
+  column-count: 3;
 }
+
+@media only screen and (max-width: 1400px) {
+  .area-droppable {
+    column-count: 2;
+  }
+}
+
+@media only screen and (max-width: 775px) {
+  .area-droppable {
+    column-count: 1;
+  }
+}
+
 
 .dragging-over {
   background-color: var(--area-active-color);
@@ -21,6 +35,7 @@
 .item-enter {
   background-color: var(--todo-active-color);
 }
+
 .item-enter-active {
   background-color: var(--todo-active-color);
   transition: 300ms ease-in;

@@ -1,7 +1,7 @@
 :root {
   --main-text-color: #000;
   --main-background-color: #cecece;
-  
+
   --area-title-color: #0000ff;
   --area-color: #fff;
   --area-active-color: #CCCCCC;
@@ -10,7 +10,6 @@
   --schedule-area-color: #ebefeb;
   --delegate-area-color: #fcf4eb;
   --eliminate-area-color: #fff6e3;
-  --done-area-color: #E0E0E0;
 
   --todo-color: #fff;
   --todo-active-color: #E6E6E6;
@@ -21,12 +20,24 @@
 * {
   margin: 0;
   padding: 0;
-  font-size: 1em;
   font-family: inherit;
 }
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+@media only screen and (max-width: 1400px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  body {
+    font-size: 10px;
+  }
 }
 
 button {

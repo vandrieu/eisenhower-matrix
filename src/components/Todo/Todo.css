@@ -33,8 +33,7 @@
   overflow-x: auto;
   resize: none;
   word-wrap: anywhere;
-  height: 18px;
-  max-height: 38px;
+  min-height: 18px;
 }
 
 .button-section {
