@@ -6,5 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3081,
-  }
+  },
+  base: './' // for github pages
 })
