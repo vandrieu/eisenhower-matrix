@@ -1,19 +1,21 @@
 // From https://usehooks.com/useKeyPress/
 import { useState, useEffect } from "react";
 
-function useKeyPress(targetKey) {
+function useKeyPress(targetKey: string) {
   // State for keeping track of whether key is pressed
   const [keyPressed, setKeyPressed] = useState(false);
 
   // If pressed key is our target key then set to true
-  function downHandler({ key }) {
+  function downHandler(e: KeyboardEvent) {
+    const key = e.key;
     if (key === targetKey) {
       setKeyPressed(true);
     }
   }
 
   // If released key is our target key then set to false
-  const upHandler = ({ key }) => {
+  const upHandler = (e: KeyboardEvent) => {
+    const key = e.key
     if (key === targetKey) {
       setKeyPressed(false);
     }

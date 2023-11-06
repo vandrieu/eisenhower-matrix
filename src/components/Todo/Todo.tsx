@@ -1,26 +1,27 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ChangeEvent, FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { Edit, CheckSquare, XSquare } from 'react-feather';
-import useKeypress from "../../hooks/useKeyPress";
+import { XSquare } from 'react-feather';
 import TextareaAutosize from 'react-textarea-autosize';
+import useKeypress from "../../hooks/useKeyPress";
 
-import './Todo.css'
+import './Todo.css';
+import { TodoModel } from '../../model';
 
-function Todo(props) {
+function Todo(props: TodoProps) {
   // TODO: Don't render all the changes all the time
-  const { data, areaKey, index, change, remove } = props;
+  const { data, index, change, remove } = props;
 
   const [isInputActive, setIsInputActive] = useState(data.text.length === 0 ?? false); //focus empty todo when created
   const [inputValue, setInputValue] = useState(data.text);
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const enter = useKeypress("Enter");
   const esc = useKeypress("Escape");
 
   const onEnter = useCallback(() => {
     if (enter) {
-      change(areaKey, index, inputValue);
+      change(data.id, inputValue);
       setIsInputActive(false);
     }
   }, [enter, inputValue, change]);
@@ -32,8 +33,8 @@ function Todo(props) {
     }
   }, [esc, data.text]);
 
-  const onBlur = (e) => {
-    change(areaKey, index, inputValue);
+  const onBlur = (e: FocusEvent<HTMLElement>) => {
+    change(data.id, inputValue);
     setIsInputActive(false);
   }
 
@@ -41,9 +42,11 @@ function Todo(props) {
   useEffect(() => {
     if (isInputActive) {
       const textarea = inputRef.current
-      textarea.focus();
-      textarea.setSelectionRange(textarea.value.length, textarea.value.length);
-      textarea.scrollTop = textarea.scrollHeight;
+      if (textarea) {
+        textarea.focus();
+        textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+        textarea.scrollTop = textarea.scrollHeight;
+      }
     }
   }, [isInputActive]);
 
@@ -55,24 +58,19 @@ function Todo(props) {
   }, [onEnter, onEsc, isInputActive]); // watch the Enter and Escape key presses
 
   const handleInputChange = useCallback(
-    (event) => {
+    (event: ChangeEvent<HTMLElement & { value: string }>) => {
       // TODO: Sanitize input
       setInputValue(event.target.value);
     },
     [setInputValue]
   );
 
-  const handleSave = () => {
-    change(areaKey, index, inputValue);
-    setIsInputActive(false);
-  }
-
   const handleEdit = () => {
     setIsInputActive(true);
   }
 
   return (
-    <Draggable key={data.id} draggableId={data.id} index={index}>
+    <Draggable key={data.id} draggableId={data.id.toString()} index={index}>
       {(provided, snapshot) =>
         <div
           className={`todo ${snapshot.isDragging ? " active" : ""} ${isInputActive ? " active" : ""}`}
@@ -97,12 +95,19 @@ function Todo(props) {
             }
           </div>
           <div className="button-section">
-            <button className="action-button remove-button" onClick={() => remove(areaKey, index)}><XSquare /></button>
+            <button className="action-button remove-button" onClick={() => remove(data.id)}><XSquare /></button>
           </div>
         </div>
       }
     </Draggable>
   );
+}
+
+type TodoProps = {
+  data: TodoModel,
+  index: number,
+  change: (todoId: string, text: string) => void,
+  remove: (todoId: string) => void
 }
 
 export default Todo;
