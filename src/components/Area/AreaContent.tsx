@@ -6,10 +6,10 @@ import { AreaName, TodoModel } from '../../model';
 import { StrictModeDroppable } from '../Droppable/StrictModeDroppable';
 
 function AreaContent(props: AreaContentProps) {
-  const { areaKey, todos, change, remove } = props;
+  const { areaKey, todos, add, change, remove } = props;
 
   return (
-    <div className={"area-content"}>
+    <div className={"area-content"} onDoubleClick={() => add(areaKey)}>
 
       <StrictModeDroppable key={areaKey} droppableId={areaKey} >
         {(provided, snapshot) => (
@@ -37,6 +37,7 @@ function AreaContent(props: AreaContentProps) {
 type AreaContentProps = {
   areaKey: AreaName,
   todos: TodoModel[],
+  add: (key: AreaName) => void,
   change: (todoId: string, text: string) => void,
   remove: (todoId: string) => void
 }

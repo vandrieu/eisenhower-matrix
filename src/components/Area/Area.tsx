@@ -13,7 +13,7 @@ function Area(props: AreaProps) {
     <div key={areaKey} className={`area ${areaClassName}-area`}>
 
       <AreaHeader areaKey={areaKey} add={add} />
-      <AreaContent areaKey={areaKey} todos={data} change={change} remove={remove} />
+      <AreaContent areaKey={areaKey} add={add} todos={data} change={change} remove={remove} />
 
     </div>
   )
