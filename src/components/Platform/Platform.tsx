@@ -26,6 +26,9 @@ function Platform() {
   }
 
   const changeTodo = (todoId: string, text: string) => {
+    if (!text?.trim()) {
+      return removeTodo(todoId)
+    }
     setTodos(todos.map(todo => todo.id === todoId ? { ...todo, text } : todo))
   }
 
