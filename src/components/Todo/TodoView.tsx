@@ -5,9 +5,9 @@ import TextareaAutosize from 'react-textarea-autosize';
 import useKeypress from "../../hooks/useKeyPress";
 
 import './Todo.css';
-import { TodoModel } from '../../model';
+import { Todo } from '../../model/Todo';
 
-function Todo(props: TodoProps) {
+function TodoView(props: TodoProps) {
   // TODO: Don't render all the changes all the time
   const { data, index, change, remove } = props;
 
@@ -104,10 +104,10 @@ function Todo(props: TodoProps) {
 }
 
 type TodoProps = {
-  data: TodoModel,
+  data: Todo,
   index: number,
   change: (todoId: string, text: string) => void,
   remove: (todoId: string) => void
 }
 
-export default Todo;
+export default TodoView;

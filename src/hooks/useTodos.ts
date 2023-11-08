@@ -1,9 +1,9 @@
-import { TodoModel } from '../model';
+import { Todo } from '../model/Todo';
 import useLocalStorageState from './useLocalStorageState';
 
-export default function useTodos(): [TodoModel[], (value: TodoModel[]) => void] {
+export default function useTodos(): [Todo[], (value: Todo[]) => void] {
 
-  const [storedValue, setValue] = useLocalStorageState("todos", [] as TodoModel[]);
+  const [storedValue, setValue] = useLocalStorageState("todos", [] as Todo[]);
 
   return [storedValue, setValue];
 }

@@ -1,13 +1,13 @@
 import { DragDropContext } from 'react-beautiful-dnd';
 import { onDragEnd } from '../../utils/drag';
-import { generateId } from '../../utils/idgenerator';
 
 import Area from '../Area/Area';
 
-import { AreaName, TodoModel, initialAreas } from '../../model';
+import { AreaName, initialAreas } from '../../model';
 import './Platform.css';
 import useTodos from '../../hooks/useTodos';
 import { getTodosForArea } from '../../utils/misc';
+import { Todo } from '../../model/Todo';
 
 
 function Platform() {
@@ -17,7 +17,7 @@ function Platform() {
   const addTodo = (key: AreaName) => {
     let area = areas.find(area => area.name === key)
     if (!area) throw new Error(`Area ${key} not found`)
-    const newTodo: TodoModel = { id: generateId(todos.map(t => t.id)), text: "", important: area.important, urgent: area.urgent }
+    const newTodo: Todo = new Todo(area.important, area.urgent, todos)
     setTodos([...todos, newTodo])
   }
 
