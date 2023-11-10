@@ -1,4 +1,4 @@
-import { Todo } from '../model/Todo';
+import { Todo } from '../model/model';
 import useLocalStorageState from './useLocalStorageState';
 
 export default function useTodos(): [Todo[], (value: Todo[]) => void] {

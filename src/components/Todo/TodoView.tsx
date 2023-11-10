@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import useKeypress from "../../hooks/useKeyPress";
 
 import './Todo.css';
-import { Todo } from '../../model/Todo';
+import { Todo } from '../../model/model';
 
 function TodoView(props: TodoProps) {
   // TODO: Don't render all the changes all the time

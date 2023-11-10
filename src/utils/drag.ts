@@ -1,6 +1,6 @@
 import { DropResult } from "react-beautiful-dnd";
-import { AreaModel } from "../model";
-import { Todo } from "../model/Todo";
+import { AreaModel, Todo } from "../model/model";
+import { reorderTodos } from "../model/TodoController";
 
 export const onDragEnd = (result: DropResult, todos: Todo[], areas: AreaModel[], setTodos: (value: Todo[]) => void) => {
   if (!result.destination) return;
@@ -11,7 +11,7 @@ export const onDragEnd = (result: DropResult, todos: Todo[], areas: AreaModel[],
 
   // CASE 1 : DRAG INSIDE THE SAME AREA (RE-ORDER)
   if (destination.droppableId === source.droppableId) {
-    setTodos(Todo.reorderTodos(source.index, destination.index, todos, destArea));
+    setTodos(reorderTodos(source.index, destination.index, todos, destArea));
   }
 
   // CASE 2 : DRAG ACCROSS DIFFERENT AREAS

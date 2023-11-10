@@ -3,8 +3,7 @@ import AreaContent from './AreaContent';
 import AreaHeader from './AreaHeader';
 
 import './Area.css';
-import { AreaName } from '../../model';
-import { Todo } from '../../model/Todo';
+import { AreaName, Todo } from '../../model/model';
 
 function Area(props: AreaProps) {
   const { data, areaKey, add, change, remove } = props;

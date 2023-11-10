@@ -3,11 +3,10 @@ import { onDragEnd } from '../../utils/drag';
 
 import Area from '../Area/Area';
 
-import { AreaName, initialAreas } from '../../model';
+import { AreaName, Todo, initialAreas } from '../../model/model';
 import './Platform.css';
 import useTodos from '../../hooks/useTodos';
-import { Todo } from '../../model/Todo';
-
+import { createTodo, getTodosForArea } from '../../model/TodoController';
 
 function Platform() {
   const areas = initialAreas
@@ -16,7 +15,7 @@ function Platform() {
   const addTodo = (key: AreaName) => {
     let area = areas.find(area => area.name === key)
     if (!area) throw new Error(`Area ${key} not found`)
-    const newTodo: Todo = new Todo(area.important, area.urgent, todos)
+    const newTodo: Todo = createTodo(area.important, area.urgent, todos)
     setTodos([...todos, newTodo])
   }
 
@@ -41,7 +40,7 @@ function Platform() {
 
       <DragDropContext onDragEnd={result => onDragEnd(result, todos, areas, setTodos)}>
         {areas.map((area, index) =>
-          <Area key={area.name} areaKey={area.name} data={Todo.getTodosForArea(todos, areas, area.name)} add={addTodo} change={changeTodo} remove={removeTodo} />
+          <Area key={area.name} areaKey={area.name} data={getTodosForArea(todos, areas, area.name)} add={addTodo} change={changeTodo} remove={removeTodo} />
         )}
       </DragDropContext>
     </div>

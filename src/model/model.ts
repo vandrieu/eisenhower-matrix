@@ -1,3 +1,11 @@
+export type Todo = {
+  id: string;
+  text: string;
+  important: boolean;
+  urgent: boolean;
+  order: number;
+}
+
 export type AreaName = "Do" | "Schedule" | "Delegate" | "Eliminate";
 
 export type AreaModel = {
