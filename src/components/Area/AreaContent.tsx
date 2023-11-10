@@ -1,9 +1,10 @@
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import './AreaContent.css';
-import Todo from '../Todo/Todo';
-import { AreaName, TodoModel } from '../../model';
+import TodoView from '../Todo/TodoView';
+import { AreaName, Todo } from '../../model/model';
 import { StrictModeDroppable } from '../Droppable/StrictModeDroppable';
+import { sortByOrder } from '../../model/TodoController';
 
 function AreaContent(props: AreaContentProps) {
   const { areaKey, todos, add, change, remove } = props;
@@ -17,9 +18,9 @@ function AreaContent(props: AreaContentProps) {
           <div className={"area-droppable" + (snapshot.isDraggingOver ? " dragging-over" : "")} {...provided.droppableProps} ref={provided.innerRef}>
             <TransitionGroup component={null}>
 
-              {todos.map((item, index) =>
+              {sortByOrder(todos).map((item, index) =>
                 <CSSTransition key={item.id} classNames="item" timeout={300} exit={false}>
-                  <Todo key={item.id} data={item} index={index} change={change} remove={remove} />
+                  <TodoView key={item.id} data={item} index={index} change={change} remove={remove} />
                 </CSSTransition>)
               }
 
@@ -36,7 +37,7 @@ function AreaContent(props: AreaContentProps) {
 
 type AreaContentProps = {
   areaKey: AreaName,
-  todos: TodoModel[],
+  todos: Todo[],
   add: (key: AreaName) => void,
   change: (todoId: string, text: string) => void,
   remove: (todoId: string) => void

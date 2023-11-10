@@ -1,14 +1,12 @@
 import { DragDropContext } from 'react-beautiful-dnd';
 import { onDragEnd } from '../../utils/drag';
-import { generateId } from '../../utils/idgenerator';
 
-import Area from '../Area/Area';
+import AreaView from '../Area/AreaView';
 
-import { AreaName, TodoModel, initialAreas } from '../../model';
+import { AreaName, Todo, initialAreas } from '../../model/model';
 import './Platform.css';
 import useTodos from '../../hooks/useTodos';
-import { getTodosForArea } from '../../utils/misc';
-
+import { createTodo, getTodosForArea } from '../../model/TodoController';
 
 function Platform() {
   const areas = initialAreas
@@ -17,7 +15,7 @@ function Platform() {
   const addTodo = (key: AreaName) => {
     let area = areas.find(area => area.name === key)
     if (!area) throw new Error(`Area ${key} not found`)
-    const newTodo: TodoModel = { id: generateId(todos.map(t => t.id)), text: "", important: area.important, urgent: area.urgent }
+    const newTodo: Todo = createTodo(area.important, area.urgent, todos)
     setTodos([...todos, newTodo])
   }
 
@@ -42,7 +40,7 @@ function Platform() {
 
       <DragDropContext onDragEnd={result => onDragEnd(result, todos, areas, setTodos)}>
         {areas.map((area, index) =>
-          <Area key={area.name} areaKey={area.name} data={getTodosForArea(todos, areas, area.name)} add={addTodo} change={changeTodo} remove={removeTodo} />
+          <AreaView key={area.name} areaKey={area.name} data={getTodosForArea(todos, areas, area.name)} add={addTodo} change={changeTodo} remove={removeTodo} />
         )}
       </DragDropContext>
     </div>

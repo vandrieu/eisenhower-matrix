@@ -1,23 +1,33 @@
 import { DropResult } from "react-beautiful-dnd";
-import { AreaModel, TodoModel } from "../model";
+import { Area, Todo } from "../model/model";
+import { reorderTodos } from "../model/TodoController";
 
-export const onDragEnd = (result: DropResult, todos: TodoModel[], areas: AreaModel[], setTodos: (value: TodoModel[]) => void) => {
+export const onDragEnd = (result: DropResult, todos: Todo[], areas: Area[], setTodos: (value: Todo[]) => void) => {
   if (!result.destination) return;
-  const { destination } = result;
+  const { source, destination } = result;
 
   const destArea = areas.find(area => destination.droppableId === area.name)
   if (!destArea) throw new Error(`destArea "${destArea}" not found`)
 
-  setTodos(todos.map(todo => {
-    if (todo.id === result.draggableId) {
-      return {
-        ...todo,
-        important: destArea.important,
-        urgent: destArea.urgent,
-      }
-    }
-    return todo
+  // CASE 1 : DRAG INSIDE THE SAME AREA (RE-ORDER)
+  if (destination.droppableId === source.droppableId) {
+    setTodos(reorderTodos(source.index, destination.index, todos, destArea));
   }
-  ))
+
+  // CASE 2 : DRAG ACCROSS DIFFERENT AREAS
+  else {
+    setTodos(todos.map(todo => {
+      if (todo.id === result.draggableId) {
+        return {
+          ...todo,
+          important: destArea.important,
+          urgent: destArea.urgent,
+        }
+      }
+      return todo
+    }
+    ))
+  }
+
 
 };

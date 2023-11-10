@@ -1,19 +1,20 @@
-export type TodoModel = {
+export type Todo = {
   id: string;
-  text: string,
-  important: boolean,
-  urgent: boolean,
-};
+  text: string;
+  important: boolean;
+  urgent: boolean;
+  order: number;
+}
 
 export type AreaName = "Do" | "Schedule" | "Delegate" | "Eliminate";
 
-export type AreaModel = {
+export type Area = {
   name: AreaName,
   important: boolean,
   urgent: boolean,
 }
 
-export const initialAreas: AreaModel[] = [
+export const initialAreas: Area[] = [
   { name: "Do", important: true, urgent: true },
   { name: "Schedule", important: true, urgent: false },
   { name: "Delegate", important: false, urgent: true },

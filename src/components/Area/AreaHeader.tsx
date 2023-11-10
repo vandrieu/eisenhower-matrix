@@ -1,6 +1,6 @@
 import { PlusSquare } from 'react-feather';
 
-import { AreaName } from '../../model';
+import { AreaName } from '../../model/model';
 import './AreaHeader.css';
 
 function AreaHeader(props: AreaHeaderProps) {
