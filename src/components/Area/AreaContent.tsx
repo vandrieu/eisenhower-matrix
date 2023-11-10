@@ -18,7 +18,7 @@ function AreaContent(props: AreaContentProps) {
           <div className={"area-droppable" + (snapshot.isDraggingOver ? " dragging-over" : "")} {...provided.droppableProps} ref={provided.innerRef}>
             <TransitionGroup component={null}>
 
-              {todos.map((item, index) =>
+              {Todo.sortByOrder(todos).map((item, index) =>
                 <CSSTransition key={item.id} classNames="item" timeout={300} exit={false}>
                   <TodoView key={item.id} data={item} index={index} change={change} remove={remove} />
                 </CSSTransition>)

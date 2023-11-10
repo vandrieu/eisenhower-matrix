@@ -6,7 +6,6 @@ import Area from '../Area/Area';
 import { AreaName, initialAreas } from '../../model';
 import './Platform.css';
 import useTodos from '../../hooks/useTodos';
-import { getTodosForArea } from '../../utils/misc';
 import { Todo } from '../../model/Todo';
 
 
@@ -42,7 +41,7 @@ function Platform() {
 
       <DragDropContext onDragEnd={result => onDragEnd(result, todos, areas, setTodos)}>
         {areas.map((area, index) =>
-          <Area key={area.name} areaKey={area.name} data={getTodosForArea(todos, areas, area.name)} add={addTodo} change={changeTodo} remove={removeTodo} />
+          <Area key={area.name} areaKey={area.name} data={Todo.getTodosForArea(todos, areas, area.name)} add={addTodo} change={changeTodo} remove={removeTodo} />
         )}
       </DragDropContext>
     </div>
