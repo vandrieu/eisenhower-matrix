@@ -1,7 +1,7 @@
 import { DragDropContext } from 'react-beautiful-dnd';
 import { onDragEnd } from '../../utils/drag';
 
-import Area from '../Area/Area';
+import AreaView from '../Area/AreaView';
 
 import { AreaName, Todo, initialAreas } from '../../model/model';
 import './Platform.css';
@@ -40,7 +40,7 @@ function Platform() {
 
       <DragDropContext onDragEnd={result => onDragEnd(result, todos, areas, setTodos)}>
         {areas.map((area, index) =>
-          <Area key={area.name} areaKey={area.name} data={getTodosForArea(todos, areas, area.name)} add={addTodo} change={changeTodo} remove={removeTodo} />
+          <AreaView key={area.name} areaKey={area.name} data={getTodosForArea(todos, areas, area.name)} add={addTodo} change={changeTodo} remove={removeTodo} />
         )}
       </DragDropContext>
     </div>

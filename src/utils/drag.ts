@@ -1,8 +1,8 @@
 import { DropResult } from "react-beautiful-dnd";
-import { AreaModel, Todo } from "../model/model";
+import { Area, Todo } from "../model/model";
 import { reorderTodos } from "../model/TodoController";
 
-export const onDragEnd = (result: DropResult, todos: Todo[], areas: AreaModel[], setTodos: (value: Todo[]) => void) => {
+export const onDragEnd = (result: DropResult, todos: Todo[], areas: Area[], setTodos: (value: Todo[]) => void) => {
   if (!result.destination) return;
   const { source, destination } = result;
 

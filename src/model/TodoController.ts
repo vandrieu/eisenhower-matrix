@@ -1,4 +1,4 @@
-import { AreaModel, AreaName, Todo } from "./model";
+import { Area, AreaName, Todo } from "./model";
 import { generateId } from "../utils/idgenerator";
 
 export function createTodo(important: boolean, urgent: boolean, allTodos: Todo[]): Todo {
@@ -11,7 +11,7 @@ export function createTodo(important: boolean, urgent: boolean, allTodos: Todo[]
   }
 }
 
-export function reorderTodos(oldOrder: number, newOrder: number, allTodos: Todo[], area: AreaModel): Todo[] {
+export function reorderTodos(oldOrder: number, newOrder: number, allTodos: Todo[], area: Area): Todo[] {
 
   const areaTodos = getTodosForArea_(allTodos, area.important, area.urgent)
   const notAreaTodos = allTodos.filter(todo => !areaTodos.includes(todo))
@@ -48,7 +48,7 @@ export function sortByOrder(todos: Todo[]) {
   return arrayClone
 }
 
-export function getTodosForArea(todos: Todo[], areas: AreaModel[], areaKey: AreaName) {
+export function getTodosForArea(todos: Todo[], areas: Area[], areaKey: AreaName) {
   const area = areas.find(area => area.name === areaKey)
   if (!area) throw new Error(`Area ${areaKey} not found`)
   return getTodosForArea_(todos, area.important, area.urgent)

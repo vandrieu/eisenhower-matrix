@@ -2,10 +2,10 @@
 import AreaContent from './AreaContent';
 import AreaHeader from './AreaHeader';
 
-import './Area.css';
+import './AreaView.css';
 import { AreaName, Todo } from '../../model/model';
 
-function Area(props: AreaProps) {
+function AreaView(props: AreaProps) {
   const { data, areaKey, add, change, remove } = props;
   const areaClassName = areaKey.toLowerCase();
 
@@ -27,4 +27,4 @@ type AreaProps = {
   remove: (todoId: string) => void
 }
 
-export default Area;
+export default AreaView;
